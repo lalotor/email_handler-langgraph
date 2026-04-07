@@ -15,6 +15,7 @@ env/
 
 # General
 .env
+logs/
 
 # uv-specific
 .uv/

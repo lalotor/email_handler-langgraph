@@ -14,4 +14,5 @@
    uv add langchain_core langchain-openai langgraph
    uv add ipython
    uv add python-dotenv
+   uv add structlog
    ```
