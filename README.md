@@ -15,4 +15,5 @@
    uv add ipython
    uv add python-dotenv
    uv add structlog
+   uv add pytest pytest-cov pytest-mock
    ```

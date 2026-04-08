@@ -123,7 +123,7 @@ def search_documentation(state: EmailAgentState) -> Command[Literal["draft_respo
     )
 
     # Build search query from classification
-    classification = state.get('classification', {})
+    classification = state.get('classification') or {}
     query = f"{classification.get('intent', '')} {classification.get('topic', '')}"
     
     logger.debug(
@@ -372,7 +372,7 @@ def send_reply(state: EmailAgentState) -> dict:
         email_id=state.get('email_id')
     )
     
-    draft_response = state.get('draft_response', '')
+    draft_response = state.get('draft_response') or ''
     
     logger.debug(
         "sending_email",

@@ -5,16 +5,21 @@ from langgraph.types import Command
 from dotenv import load_dotenv
 from agents.handler import get_graph
 from config.logging_config import configure_logging
+from config.env_validator import validate_environment
 
 # Load environment variables
 load_dotenv()
 
+# Validate environment variables before proceeding
+# This ensures all required configuration is present
+validated_env = validate_environment(verbose=True)
+
 # Configure logging from environment variables
 configure_logging(
-    log_level=os.getenv("LOG_LEVEL", "INFO"),
-    json_logs=os.getenv("JSON_LOGS", "false").lower() == "true",
-    enable_file_logging=os.getenv("ENABLE_FILE_LOGGING", "false").lower() == "true",
-    log_file_path=os.getenv("LOG_FILE_PATH", "logs/app.log")
+    log_level=validated_env.get("LOG_LEVEL", "INFO"),
+    json_logs=validated_env.get("JSON_LOGS", "false").lower() == "true",
+    enable_file_logging=validated_env.get("ENABLE_FILE_LOGGING", "false").lower() == "true",
+    log_file_path=validated_env.get("LOG_FILE_PATH", "logs/app.log")
 )
 
 logger = structlog.get_logger(__name__)
