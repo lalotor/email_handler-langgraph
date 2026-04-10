@@ -438,9 +438,32 @@ def get_graph():
     )
     
     workflow.add_node("bug_tracking", bug_tracking)
-    workflow.add_node("draft_response", draft_response)
+    
+    # Add retry policy for draft_response (LLM calls may fail transiently)
+    workflow.add_node(
+        "draft_response",
+        draft_response,
+        retry_policy=RetryPolicy(max_attempts=3)
+    )
+    logger.debug(
+        "retry_policy_configured",
+        node="draft_response",
+        max_attempts=3
+    )
+    
     workflow.add_node("human_review", human_review)
-    workflow.add_node("send_reply", send_reply)
+    
+    # Add retry policy for send_reply (email service may fail transiently)
+    workflow.add_node(
+        "send_reply",
+        send_reply,
+        retry_policy=RetryPolicy(max_attempts=3)
+    )
+    logger.debug(
+        "retry_policy_configured",
+        node="send_reply",
+        max_attempts=3
+    )
 
     # Add only the essential edges
     logger.debug("adding_workflow_edges")
