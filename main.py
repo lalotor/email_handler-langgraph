@@ -124,17 +124,18 @@ def main():
     save_graph_image(graph)
 
 def save_graph_image(graph):
+    """Generate and save a visualization of the graph to a PNG file."""
     try:
-        logger.debug("generating_graph_visualization")
+        logger.info("generating_graph_visualization")
         # Generate the image data
         graph_image = graph.get_graph().draw_mermaid_png()
 
         # Save the image to a file
+        with open("graph_image.png", "wb") as f:
+            f.write(graph_image)
 
         logger.info("graph_image_saved", filename="graph_image.png")
     except Exception as e:
-
-
         logger.warning(
             "graph_visualization_failed",
             error=str(e),

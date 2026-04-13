@@ -7,6 +7,7 @@
 2. **Venv**
    ```bash
    uv venv
+   source .venv/bin/activate
    ```
 
 3. **Dependencies**
